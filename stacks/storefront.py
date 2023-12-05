@@ -64,7 +64,7 @@ class StoreFrontStack(Stack):
         task_definition = aws_ecs.FargateTaskDefinition(
             self, f"storefront-ecs-task-{self.stage}",
             cpu=256,
-            memory_limit_mib=256,
+            memory_limit_mib=512,
         )
 
         task_definition.add_to_task_role_policy(
