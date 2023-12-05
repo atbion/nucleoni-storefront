@@ -30,7 +30,6 @@ ENV NEXT_PUBLIC_SALEOR_API_URL=${NEXT_PUBLIC_SALEOR_API_URL}
 ARG NEXT_PUBLIC_STOREFRONT_URL
 ENV NEXT_PUBLIC_STOREFRONT_URL=${NEXT_PUBLIC_STOREFRONT_URL}
 
-ENV NEXT_PUBLIC_SALEOR_API_URL="https://saleor-api.example.com/graphql/"
 # Get PNPM version from package.json
 RUN export PNPM_VERSION=$(cat package.json | jq '.engines.pnpm' | sed -E 's/[^0-9.]//g')
 RUN yarn global add pnpm@$PNPM_VERSION

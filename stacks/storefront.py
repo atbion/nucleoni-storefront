@@ -17,11 +17,11 @@ from stacks.utils import UtilsService
 
 class StoreFrontStack(Stack):
     def __init__(
-        self,
-        scope: Construct,
-        construct_id: str,
-        storefront_certificate: aws_certificatemanager.Certificate,
-        **kwargs,
+            self,
+            scope: Construct,
+            construct_id: str,
+            storefront_certificate: aws_certificatemanager.Certificate,
+            **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -94,6 +94,10 @@ class StoreFrontStack(Stack):
             image=aws_ecs.ContainerImage.from_asset(
                 directory=UtilsService.root_dir(),
                 file="Dockerfile",
+                build_args={
+                    "NEXT_PUBLIC_SALEOR_API_URL": f"https://api.nucleoni.com/graphql" if self.is_production else f"https://{self.stage}.api.nucleoni.com/graphql",
+                    "NEXT_PUBLIC_SALEOR_WEB_URL": f"https://storefront.nucleoni.com" if self.is_production else f"https://{self.stage}.storefront.nucleoni.com",
+                },
             ),
             container_name=f"storefront-container-{self.stage}",
             cpu=256,
