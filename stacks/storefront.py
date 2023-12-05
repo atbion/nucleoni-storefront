@@ -63,8 +63,8 @@ class StoreFrontStack(Stack):
         # Create Task Definition
         task_definition = aws_ecs.FargateTaskDefinition(
             self, f"storefront-ecs-task-{self.stage}",
-            cpu=512,
-            memory_limit_mib=2048,
+            cpu=256,
+            memory_limit_mib=256,
         )
 
         task_definition.add_to_task_role_policy(
@@ -96,8 +96,8 @@ class StoreFrontStack(Stack):
                 file="Dockerfile",
             ),
             container_name=f"storefront-container-{self.stage}",
-            cpu=512,
-            memory_limit_mib=2048,
+            cpu=256,
+            memory_limit_mib=256,
             logging=aws_ecs.LogDriver.aws_logs(
                 stream_prefix=f"storefront-{self.stage}",
                 log_group=task_definition_log_group,
