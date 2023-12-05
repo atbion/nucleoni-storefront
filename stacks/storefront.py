@@ -101,7 +101,7 @@ class StoreFrontStack(Stack):
             ),
             container_name=f"storefront-container-{self.stage}",
             cpu=256,
-            memory_limit_mib=256,
+            memory_limit_mib=512,
             logging=aws_ecs.LogDriver.aws_logs(
                 stream_prefix=f"storefront-{self.stage}",
                 log_group=task_definition_log_group,
