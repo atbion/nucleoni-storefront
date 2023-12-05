@@ -95,7 +95,7 @@ class StoreFrontStack(Stack):
                 directory=UtilsService.root_dir(),
                 file="Dockerfile",
                 build_args={
-                    "NEXT_PUBLIC_SALEOR_API_URL": f"https://api.nucleoni.com/graphql" if self.is_production else f"https://{self.stage}.api.nucleoni.com/graphql",
+                    "NEXT_PUBLIC_SALEOR_API_URL": f"https://api.nucleoni.com/graphql/" if self.is_production else f"https://{self.stage}.api.nucleoni.com/graphql/",
                     "NEXT_PUBLIC_SALEOR_WEB_URL": f"https://storefront.nucleoni.com" if self.is_production else f"https://{self.stage}.storefront.nucleoni.com",
                 },
             ),
