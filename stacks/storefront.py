@@ -177,7 +177,7 @@ class StoreFrontStack(Stack):
                 timeout=Duration.seconds(5),
                 healthy_threshold_count=2,
                 unhealthy_threshold_count=5,
-                healthy_http_codes="200",
+                healthy_http_codes="200,301-305",
                 port="80",
             ),
         )
