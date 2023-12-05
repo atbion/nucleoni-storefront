@@ -1,0 +1,42 @@
+name: Deployment Storefront Dev
+
+on:
+  push:
+    branches:
+      - dev
+      - feature/*
+      - release/*
+env:
+  STAGE: "dev"
+
+jobs:
+  deploy:
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "20"
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::486592719971:role/github-actions-role
+          aws-region: eu-west-1
+      - name: Install dependencies
+        run: npm install -g aws-cdk
+      - name: Install CDK required packages
+        run: pip install -r requirements_cdk.txt
+      - name: Bootstrap stack
+        run: cdk bootstrap
+      - name: Synth stack
+        run: cdk synth
+      - name: Deploy stack
+        run: cdk deploy --all --require-approval never
